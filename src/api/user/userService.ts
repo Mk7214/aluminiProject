@@ -27,7 +27,7 @@ export const toggleLike = async (eventId: string, userId: string) => {
 	}
 };
 
-export const comment = async (
+export const createComment = async (
 	eventId: string,
 	userId: string,
 	message: string,
@@ -66,11 +66,35 @@ export const toggleUpVote = async (commentId: string, userId: string) => {
 };
 
 // getposts
-export const events = async () => {
+export const getEvents = async () => {
 	try {
-		const posts = prisma.event.findMany();
+		const posts = await prisma.event.findMany();
 		return { success: true, data: posts };
 	} catch (err) {
 		throw new AppError("unable to get events");
+	}
+};
+
+//getcomments
+export const getAllcomments = async (eventId: string) => {
+	try {
+		const comments = await prisma.comment.findMany({ where: { eventId } });
+		return { success: true, data: comments };
+	} catch (err) {
+		throw new AppError(`unable to get comments err: ${err.message}`);
+	}
+};
+
+//getLikes
+export const getNoLikes = async (eventId: string) => {
+	try {
+		const numberOfLikes = await prisma.like.count({
+			where: {
+				eventId,
+			},
+		});
+		return { success: true, data: numberOfLikes };
+	} catch (err) {
+		throw new AppError(`unable to get likes err: ${err.message}`);
 	}
 };

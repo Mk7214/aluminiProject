@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 export interface AuthenticatedRequest extends Request {
 	user?: Pick<User, "id" | "email">;
 }
-
+//ptotects the route
 export const protect = async (
 	req: AuthenticatedRequest,
 	res: Response,
