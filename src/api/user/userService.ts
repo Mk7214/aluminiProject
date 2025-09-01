@@ -64,3 +64,13 @@ export const toggleUpVote = async (commentId: string, userId: string) => {
 		throw new AppError("unable to like the post");
 	}
 };
+
+// getposts
+export const events = async () => {
+	try {
+		const posts = prisma.event.findMany();
+		return { success: true, data: posts };
+	} catch (err) {
+		throw new AppError("unable to get events");
+	}
+};
