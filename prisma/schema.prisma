@@ -12,6 +12,7 @@ model User {
   createdAt  DateTime @default(now())
   name       String
   email      String   @unique
+  regNo      String   @unique
   password   String
   profilepic Bytes?
   course     String
@@ -21,6 +22,7 @@ model User {
   Like     Like[]
   comments Comment[]
   upvotes  UpVote[]
+  Requests Requests[]
 }
 
 model Admin {
@@ -29,14 +31,45 @@ model Admin {
   password String
 }
 
+model Requests {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  status      RequestStatus @default(PENDING)
+  email       String
+  title       String
+  topic       String
+  description String
+  datetime    String
+  userId      String        @db.ObjectId
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 model Event {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   createdAt   DateTime  @default(now())
   title       String
   description String
-  time        DateTime
+  time        String
+  photos      Photos[]
   comments    Comment[]
-  Like        Like[]
+  like        Like[]
+}
+
+model Photos {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime @default(now())
+  path         String
+  eventId      String   @db.ObjectId
+  event        Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  size         Int
+  mimetype     String
+  originalname String
+  filename     String
 }
 
 model Like {

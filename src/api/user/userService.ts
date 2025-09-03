@@ -7,6 +7,7 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { AppError } from "../../middleware/errorHandler";
+import { RequestBodyType } from "./userValidation";
 
 const prisma = new PrismaClient();
 
@@ -96,5 +97,22 @@ export const getNoLikes = async (eventId: string) => {
 		return { success: true, data: numberOfLikes };
 	} catch (err) {
 		throw new AppError(`unable to get likes err: ${err.message}`);
+	}
+};
+
+//request
+export const createRequest = async (data: RequestBodyType, userId: string) => {
+	try {
+		const result = await prisma.requests.create({
+			data: {
+				title: data.title,
+				topic: data.topic,
+				description: data.description,
+				datetime: data.datetime,
+				userId,
+			},
+		});
+	} catch (err) {
+		throw new AppError("ubable to create requsest");
 	}
 };

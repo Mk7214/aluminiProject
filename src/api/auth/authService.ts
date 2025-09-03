@@ -27,6 +27,7 @@ export const registerUser = async (data: RegisterType) => {
 		data: {
 			name: data.name,
 			email: data.email,
+			regNo: data.regNo,
 			password: hashPass,
 			course: data.course,
 			batch: data.batch,

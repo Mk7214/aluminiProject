@@ -8,6 +8,7 @@ const setCookies = (res: Response, token: string) => {
 		sameSite: config.nodeEnv === "production" ? "strict" : "lax",
 		secure: config.nodeEnv === "production",
 	});
+	console.log("cookie set successfully");
 };
 
 export default setCookies;

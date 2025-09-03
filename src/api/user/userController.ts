@@ -2,6 +2,7 @@ import { Response, NextFunction } from "express";
 import { AuthenticatedRequest } from "../../middleware/authenticateMiddleware";
 import {
 	createComment,
+	createRequest,
 	getAllcomments,
 	getEvents,
 	getNoLikes,
@@ -9,6 +10,7 @@ import {
 	toggleUpVote,
 } from "./userService";
 import { success } from "zod";
+import { RequestBodyType } from "./userValidation";
 
 export const comments = async (
 	req: AuthenticatedRequest,
@@ -109,6 +111,24 @@ export const getLikes = async (
 	try {
 		const { eventId } = req.params;
 		const result = await getNoLikes(eventId);
+		res.status(201).json({
+			success: result.success,
+			data: result.data,
+		});
+	} catch (err) {
+		next(err);
+	}
+};
+
+export const request = async (
+	req: AuthenticatedRequest,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const data = req.body;
+		const userId = req.user.id;
+		const result = await createRequest(data, userId);
 		res.status(201).json({
 			success: result.success,
 			data: result.data,

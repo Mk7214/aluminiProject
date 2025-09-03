@@ -3,7 +3,12 @@ import { apiRoutes } from "./api";
 import { adminRoutes } from "./admin";
 import cookie from "cookie-parser";
 import { errorHandler } from "./middleware/errorHandler";
+import createUploads from "./utils/fileUpload";
+
 const app = express();
+// multer for file handling
+
+createUploads();
 
 //middleware
 app.use(express.json());

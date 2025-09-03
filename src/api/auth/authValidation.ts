@@ -4,6 +4,7 @@ export const registerSchema = z.object({
 	body: z.object({
 		name: z.string().min(3, "Length must be greater than 3"),
 		email: z.email(),
+		regNo: z.string(),
 		password: z.string().min(6, "password must be atleast 6 characters"),
 		course: z.string(), // can use enum to validate only the courses provided by the college
 		batch: z.string(),

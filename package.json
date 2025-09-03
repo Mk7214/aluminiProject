@@ -5,7 +5,8 @@
 	"scripts": {
 		"start": "npx tsc && node dist/server.js",
 		"dev": "nodemon",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dbPush": "npx prisma generate && npx prisma db push"
 	},
 	"author": "",
 	"license": "ISC",
@@ -17,6 +18,7 @@
 		"dotenv": "^17.2.1",
 		"express": "^5.1.0",
 		"jsonwebtoken": "^9.0.2",
+		"multer": "^2.0.2",
 		"zod": "^4.0.17"
 	},
 	"devDependencies": {
@@ -25,6 +27,7 @@
 		"@types/dotenv": "^6.1.1",
 		"@types/express": "^5.0.3",
 		"@types/jsonwebtoken": "^9.0.10",
+		"@types/multer": "^2.0.0",
 		"@types/node": "^24.2.1",
 		"nodemon": "^3.1.10",
 		"prisma": "^6.14.0",

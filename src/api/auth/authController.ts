@@ -28,6 +28,7 @@ export const login = async (
 ) => {
 	try {
 		const user = await loginUser(req.body);
+		setCookies(res, user.token);
 		res.status(201).json({
 			success: true,
 			message: "User Login Successfully",
@@ -38,6 +39,5 @@ export const login = async (
 	}
 };
 
-//setcookies
 // TODO: implement logout
 // TODO: implement getUser
