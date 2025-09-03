@@ -103,15 +103,17 @@ export const getNoLikes = async (eventId: string) => {
 //request
 export const createRequest = async (data: RequestBodyType, userId: string) => {
 	try {
-		const result = await prisma.requests.create({
+		const res = await prisma.requests.create({
 			data: {
+				userId,
 				title: data.title,
 				topic: data.topic,
 				description: data.description,
 				datetime: data.datetime,
-				userId,
+				email: data.email,
 			},
 		});
+		return { success: true, data: res };
 	} catch (err) {
 		throw new AppError("ubable to create requsest");
 	}

@@ -17,7 +17,7 @@ export const toggleRequset = async (
 			},
 		});
 
-		return { result };
+		return { success: true, data: result };
 	} catch (err) {
 		throw new AppError("unable to approveRequset");
 	}

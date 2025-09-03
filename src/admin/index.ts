@@ -6,6 +6,7 @@ import {
 	getComments,
 	getLikes,
 } from "../api/user/userController";
+import { editRequest } from "./request/requestController";
 
 const router = Router();
 const upload = createUploads();
@@ -17,5 +18,7 @@ router.patch("/events/:eventId/uploadPic", upload.array("pic"), uploadPic);
 router.get("/events", getAllEvents);
 router.get("events/:eventId", getComments);
 router.get("events/:eventId", getLikes);
+
+router.patch("request/:id", editRequest);
 
 export { router as adminRoutes };
